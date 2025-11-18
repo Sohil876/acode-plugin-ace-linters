@@ -47,12 +47,19 @@ let buildConfig = {
 		copy({
 			assets: [
 				{
-					from: ["./node_modules/ace-linters/build/service-manager.js"],
-					to: ["./service-manager.js"],
-				},
-				{
-					from: ["./node_modules/ace-linters/build/*-service.js"],
-					to: ["./"], // Copies all services (json-service, html-service, etc.)
+					// Explicitly list ONLY the services you registered in main.js, this prevents copying unused junk
+					from: [
+						"./node_modules/ace-linters/build/css-service.js",
+						"./node_modules/ace-linters/build/html-service.js",
+						"./node_modules/ace-linters/build/javascript-service.js",
+						"./node_modules/ace-linters/build/json-service.js",
+						"./node_modules/ace-linters/build/lua-service.js",
+						"./node_modules/ace-linters/build/php-service.js",
+						"./node_modules/ace-linters/build/typescript-service.js",
+						"./node_modules/ace-linters/build/xml-service.js",
+						"./node_modules/ace-linters/build/yaml-service.js",
+					],
+					to: ["./"],
 				},
 			],
 		}),
