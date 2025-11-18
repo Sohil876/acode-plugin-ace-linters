@@ -104,34 +104,42 @@ class AcodeAceLinters {
 		// We construct the worker code as a string.
 		// Note: We use `importScripts` which works inside the Blob worker because we pass the absolute `baseUrl` to locate the files.
 		const workerCode = `
-            // Import the main manager
-            importScripts("${this.baseUrl}service-manager.js");
-            
-            const manager = new ServiceManager(self);
-            
-            // Register all services
-            ${services
-							.map(
-								(s) => `
-                manager.registerService("${s.name}", {
-                    module: () => {
-                        importScripts("${this.baseUrl}${s.script}");
-                        return { ${s.className} };
-                    },
-                    className: "${s.className}",
-                    modes: "${s.modes}"
-                });
-            `,
-							)
-							.join("\n")}
+            try {
+                importScripts("${this.baseUrl}service-manager.js");
+                const manager = new ServiceManager(self);
+                
+                ${services
+									.map(
+										(s) => `
+                    manager.registerService("${s.name}", {
+                        module: () => {
+                            importScripts("${this.baseUrl}${s.script}");
+                            return { ${s.className} };
+                        },
+                        className: "${s.className}",
+                        modes: "${s.modes}"
+                    });
+                `,
+									)
+									.join("\n")}
+            } catch (e) {
+                console.error("Worker Error:", e);
+            }
         `;
 
 		return new Blob([workerCode], { type: "application/javascript" });
 	}
 
 	async destroy() {
-		if (this.provider) this.provider.dispose();
-		if (this.worker) this.worker.terminate();
+		if (this.provider) {
+			// Safe disposal
+			try {
+				this.provider.dispose();
+			} catch (e) {}
+		}
+		if (this.worker) {
+			this.worker.terminate();
+		}
 		acode.unregisterFormatter(plugin.id);
 	}
 }
