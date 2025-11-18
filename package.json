@@ -7,12 +7,15 @@
 	"author": "Arsh Khan <sohil876@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
-		"html-tag-js": "^2.4.15"
+		"ace-linters": "^1.8.5",
+		"html-tag-js": "^2.4.15",
+		"path-browserify": "^1.0.1"
 	},
 	"devDependencies": {
 		"@biomejs/biome": "2.3.6",
 		"@types/ace": "^0.0.52",
 		"esbuild": "^0.25.8",
+		"esbuild-plugin-copy": "^2.1.1",
 		"jszip": "^3.10.1"
 	},
 	"scripts": {
