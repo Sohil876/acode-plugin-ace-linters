@@ -1,5 +1,5 @@
-const path = require('path');
-const fs = require('fs');
+const path = require('node:path');
+const fs = require('node:fs');
 const jszip = require('jszip');
 
 const iconFile = path.join(__dirname, 'icon.png');
