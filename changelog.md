@@ -1,5 +1,11 @@
 # ChangeLogs
 
+## `v1.0.5`
+
+- Fixed plugin always disabled after install by switching build to IIFE
+- Fixed XML lint issues
+- Fixed disable/remove plugin logic
+
 ## `v1.0.4`
 
 - Use new reworked worker instead of workerblob method
