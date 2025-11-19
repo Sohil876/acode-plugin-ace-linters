@@ -37,7 +37,7 @@ let buildConfig = {
 	target: "es2019",
 	define: {
 		"process.env.NODE_ENV": '"production"',
-		global: "window",
+		global: "self",
 	},
 	alias: {
 		path: "path-browserify",
@@ -47,6 +47,13 @@ let buildConfig = {
 		// This allows us to use importScripts() in the worker blob
 		copy({
 			assets: [
+				{
+					from: [
+						"./node_modules/ace-linters/build/ace-linters.js",
+						"./node_modules/ace-linters/build/service-manager.js",
+					],
+					to: ["./"],
+				},
 				{
 					// Explicitly list ONLY the services you registered in main.js, this prevents copying unused junk
 					from: [
