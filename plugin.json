@@ -3,7 +3,7 @@
 	"id": "acode.plugin.acelinters_full",
 	"name": "Ace Linters (Full)",
 	"main": "main.js",
-	"version": "1.0.3",
+	"version": "1.0.4",
 	"repository": "https://github.com/Sohil876/acode-plugin-ace-linters.git",
 	"icon": "icon.png",
 	"minVersionCode": 290,

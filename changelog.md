@@ -1,5 +1,11 @@
 # ChangeLogs
 
+## `v1.0.4`
+
+- Use new reworked worker instead of workerblob method
+- Remove unnecessary javascript service from worker, typescript service already provides javascript mode
+- Use custom typescript class and set default sane options for javascript mode
+
 ## `v1.0.3`
 
 - Fixed LanguageProvider
