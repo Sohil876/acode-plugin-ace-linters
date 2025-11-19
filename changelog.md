@@ -5,6 +5,7 @@
 - Use new reworked worker instead of workerblob method
 - Remove unnecessary javascript service from worker, typescript service already provides javascript mode
 - Use custom typescript class and set default sane options for javascript mode
+- Only build new worker instead of shipping seperate service files, reducing plugin size
 
 ## `v1.0.3`
 

@@ -1,6 +1,5 @@
 import { exec } from "node:child_process";
 import * as esbuild from "esbuild";
-import { copy } from "esbuild-plugin-copy";
 
 const isServe = process.argv.includes("--serve");
 
@@ -52,40 +51,7 @@ let buildConfig = {
 	alias: {
 		path: "path-browserify",
 	},
-	plugins: [
-		// Copy the pre-compiled Ace Linter files to dist/
-		// This allows us to use importScripts() in the worker blob
-		copy({
-			assets: [
-				{
-					from: [
-						"./node_modules/ace-linters/build/ace-linters.js",
-						"./node_modules/ace-linters/build/service-manager.js",
-					],
-					to: ["./"],
-				},
-				{
-					// Explicitly list ONLY the services you registered in main.js, this prevents copying unused junk
-					from: [
-						"./node_modules/ace-linters/build/css-service.js",
-						"./node_modules/ace-linters/build/html-service.js",
-						"./node_modules/ace-linters/build/javascript-service.js",
-						"./node_modules/ace-linters/build/json-service.js",
-						"./node_modules/ace-linters/build/php-service.js",
-						"./node_modules/ace-linters/build/typescript-service.js",
-						"./node_modules/ace-linters/build/xml-service.js",
-						"./node_modules/ace-linters/build/yaml-service.js",
-					],
-					to: ["./"],
-				},
-				{
-					from: ["./node_modules/ace-lua-linter/build/ace-lua-linter.js"],
-					to: ["./"],
-				},
-			],
-		}),
-		zipPlugin,
-	],
+	plugins: [zipPlugin],
 };
 
 // Main function to handle both serve and production builds
