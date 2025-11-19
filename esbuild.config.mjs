@@ -42,7 +42,7 @@ let buildConfig = {
 	logLevel: "info",
 	color: true,
 	outdir: "dist",
-	format: "cjs",
+	format: "iife",
 	target: "es2022",
 	define: {
 		"process.env.NODE_ENV": '"production"',

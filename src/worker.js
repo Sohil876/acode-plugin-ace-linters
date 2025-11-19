@@ -1,5 +1,12 @@
+import { CssService } from "ace-linters/build/css-service";
+import { HtmlService } from "ace-linters/build/html-service";
+import { JsonService } from "ace-linters/build/json-service";
+import { PhpService } from "ace-linters/build/php-service";
 import { ServiceManager } from "ace-linters/build/service-manager";
 import { TypescriptService } from "ace-linters/build/typescript-service";
+import { XmlService } from "ace-linters/build/xml-service";
+import { YamlService } from "ace-linters/build/yaml-service";
+import { AceLuaLinter } from "ace-lua-linter/build/ace-lua-linter";
 
 // The manager automatically listens to 'message' events on 'self'
 let manager = new ServiceManager(self);
@@ -31,11 +38,7 @@ class CustomTypescriptService extends TypescriptService {
 
 // Register custom classes instead of the default module
 manager.registerService("typescript", {
-	module: () => {
-		// We don't need to import the module dynamically anymore because we imported the class above
-		// effectively bundling it into the worker.js file.
-		return { TypescriptService: CustomTypescriptService };
-	},
+	module: () => Promise.resolve({ TypescriptService: CustomTypescriptService }),
 	className: "TypescriptService",
 	modes: "typescript|tsx|javascript|jsx",
 });
@@ -43,37 +46,37 @@ manager.registerService("typescript", {
 // Register other classes
 manager.registerService("html", {
 	features: { signatureHelp: false },
-	module: () => import("ace-linters/build/html-service"),
+	module: () => Promise.resolve({ HtmlService }),
 	className: "HtmlService",
 	modes: "html",
 });
 manager.registerService("css", {
 	features: { signatureHelp: false },
-	module: () => import("ace-linters/build/css-service"),
+	module: () => Promise.resolve({ CssService }),
 	className: "CssService",
 	modes: "css",
 });
 manager.registerService("less", {
 	features: { signatureHelp: false },
-	module: () => import("ace-linters/build/css-service"),
+	module: () => Promise.resolve({ CssService }),
 	className: "CssService",
 	modes: "less",
 });
 manager.registerService("scss", {
 	features: { signatureHelp: false },
-	module: () => import("ace-linters/build/css-service"),
+	module: () => Promise.resolve({ CssService }),
 	className: "CssService",
 	modes: "scss",
 });
 manager.registerService("json", {
 	features: { signatureHelp: false, documentHighlight: false },
-	module: () => import("ace-linters/build/json-service"),
+	module: () => Promise.resolve({ JsonService }),
 	className: "JsonService",
 	modes: "json",
 });
 manager.registerService("json5", {
 	features: { signatureHelp: false, documentHighlight: false },
-	module: () => import("ace-linters/build/json-service"),
+	module: () => Promise.resolve({ JsonService }),
 	className: "JsonService",
 	modes: "json5",
 });
@@ -87,13 +90,13 @@ manager.registerService("lua", {
 		documentHighlight: false,
 		signatureHelp: false,
 	},
-	module: () => import("ace-lua-linter/build/ace-lua-linter"),
+	module: () => Promise.resolve({ AceLuaLinter }),
 	className: "AceLuaLinter",
 	modes: "lua",
 });
 manager.registerService("yaml", {
 	features: { signatureHelp: false, documentHighlight: false },
-	module: () => import("ace-linters/build/yaml-service"),
+	module: () => Promise.resolve({ YamlService }),
 	className: "YamlService",
 	modes: "yaml",
 });
@@ -107,7 +110,7 @@ manager.registerService("xml", {
 		documentHighlight: false,
 		signatureHelp: false,
 	},
-	module: () => import("ace-linters/build/xml-service"),
+	module: () => Promise.resolve({ XmlService }),
 	className: "XmlService",
 	modes: "xml",
 });
@@ -121,7 +124,7 @@ manager.registerService("php", {
 		documentHighlight: false,
 		signatureHelp: false,
 	},
-	module: () => import("ace-linters/build/php-service"),
+	module: () => Promise.resolve({ PhpService }),
 	className: "PhpService",
 	modes: "php",
 });
