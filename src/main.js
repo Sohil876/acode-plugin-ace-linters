@@ -1,4 +1,4 @@
-import { LanguageProvider } from "ace-linters";
+import { LanguageProvider } from "ace-linters/build/ace-linters";
 import plugin from "../plugin.json";
 
 class AcodeAceLinters {
@@ -77,8 +77,8 @@ class AcodeAceLinters {
 			},
 			{
 				name: "lua",
-				script: "lua-service.js",
-				className: "LuaService",
+				script: "ace-lua-linter.js",
+				className: "AceLuaLinter",
 				modes: "lua",
 			},
 			{

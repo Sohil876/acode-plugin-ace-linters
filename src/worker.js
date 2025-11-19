@@ -1,72 +1,108 @@
-import { CssService } from "ace-linters/build/css-service";
-import { HtmlService } from "ace-linters/build/html-service";
-import { JavascriptService } from "ace-linters/build/javascript-service";
-import { JsonService } from "ace-linters/build/json-service";
-import { LuaService } from "ace-linters/build/lua-service";
-import { PhpService } from "ace-linters/build/php-service";
 import { ServiceManager } from "ace-linters/build/service-manager";
-import { XmlService } from "ace-linters/build/xml-service";
-import { YamlService } from "ace-linters/build/yaml-service";
 
 // The manager automatically listens to 'message' events on 'self'
-const manager = new ServiceManager(self);
-
-manager.registerService("json", {
-	className: "JsonService",
-	modes: "json|json5",
-	serviceInstance: new JsonService("json|json5"),
-});
+let manager = new ServiceManager(self);
 
 manager.registerService("html", {
+	features: { signatureHelp: false },
+	module: () => import("ace-linters/build/html-service"),
 	className: "HtmlService",
 	modes: "html",
-	serviceInstance: new HtmlService("html"),
 });
-
 manager.registerService("css", {
+	features: { signatureHelp: false },
+	module: () => import("ace-linters/build/css-service"),
 	className: "CssService",
 	modes: "css",
-	serviceInstance: new CssService("css"),
 });
-
-manager.registerService("scss", {
-	className: "CssService",
-	modes: "scss",
-	serviceInstance: new CssService("scss"),
-});
-
 manager.registerService("less", {
+	features: { signatureHelp: false },
+	module: () => import("ace-linters/build/css-service"),
 	className: "CssService",
 	modes: "less",
-	serviceInstance: new CssService("less"),
 });
-
-manager.registerService("javascript", {
-	className: "JavascriptService",
-	modes: "javascript|typescript|tsx|jsx",
-	serviceInstance: new JavascriptService("javascript|typescript|tsx|jsx"),
+manager.registerService("scss", {
+	features: { signatureHelp: false },
+	module: () => import("ace-linters/build/css-service"),
+	className: "CssService",
+	modes: "scss",
 });
-
+manager.registerService("json", {
+	features: { signatureHelp: false, documentHighlight: false },
+	module: () => import("ace-linters/build/json-service"),
+	className: "JsonService",
+	modes: "json",
+});
+manager.registerService("json5", {
+	features: { signatureHelp: false, documentHighlight: false },
+	module: () => import("ace-linters/build/json-service"),
+	className: "JsonService",
+	modes: "json5",
+});
+manager.registerService("typescript", {
+	module: () => import("ace-linters/build/typescript-service"),
+	className: "TypescriptService",
+	modes: "typescript|tsx|javascript|jsx",
+});
 manager.registerService("lua", {
-	className: "LuaService",
+	features: {
+		completion: false,
+		completionResolve: false,
+		diagnostics: true,
+		format: true,
+		hover: false,
+		documentHighlight: false,
+		signatureHelp: false,
+	},
+	module: () => import("ace-lua-linter/build/ace-lua-linter"),
+	className: "AceLuaLinter",
 	modes: "lua",
-	serviceInstance: new LuaService("lua"),
 });
-
 manager.registerService("yaml", {
+	features: { signatureHelp: false, documentHighlight: false },
+	module: () => import("ace-linters/build/yaml-service"),
 	className: "YamlService",
 	modes: "yaml",
-	serviceInstance: new YamlService("yaml"),
 });
-
 manager.registerService("xml", {
+	features: {
+		completion: false,
+		completionResolve: false,
+		diagnostics: true,
+		format: false,
+		hover: false,
+		documentHighlight: false,
+		signatureHelp: false,
+	},
+	module: () => import("ace-linters/build/xml-service"),
 	className: "XmlService",
 	modes: "xml",
-	serviceInstance: new XmlService("xml"),
 });
-
 manager.registerService("php", {
+	features: {
+		completion: false,
+		completionResolve: false,
+		diagnostics: true,
+		format: false,
+		hover: false,
+		documentHighlight: false,
+		signatureHelp: false,
+	},
+	module: () => import("ace-linters/build/php-service"),
 	className: "PhpService",
 	modes: "php",
-	serviceInstance: new PhpService("php"),
+});
+manager.registerService("javascript", {
+	features: {
+		completion: false,
+		completionResolve: false,
+		diagnostics: true,
+		format: false,
+		hover: false,
+		documentHighlight: false,
+		signatureHelp: false,
+	},
+	module: () => import("ace-linters/build/javascript-service"),
+	className: "JavascriptService",
+	modes: "javascript",
 });

@@ -1,6 +1,6 @@
 {
 	"name": "acode-plugin-acelinters-full",
-	"version": "1.0.2",
+	"version": "1.0.3",
 	"description": "Linter and code formatter for Acode editor.",
 	"main": "src/main.js",
 	"repository": "https://github.com/Sohil876/acode-plugin-ace-linters.git",
@@ -14,6 +14,7 @@
 		"@biomejs/biome": "2.3.6",
 		"@types/ace": "^0.0.52",
 		"ace-linters": "^1.8.5",
+		"ace-lua-linter": "^1.1.0",
 		"esbuild": "^0.25.8",
 		"esbuild-plugin-copy": "^2.1.1",
 		"jszip": "^3.10.1"
