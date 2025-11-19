@@ -36,16 +36,24 @@ class AcodeAceLinters {
 	}
 
 	async destroy() {
-		if (this.provider) {
-			// Safe disposal
-			try {
-				this.provider.dispose();
-			} catch (e) {}
+		try {
+			acode.unregisterFormatter(plugin.id);
+		} catch (e) {}
+
+		try {
+			if (editorManager.editor && editorManager.editor.session) {
+				const session = editorManager.editor.session;
+				session.clearAnnotations();
+				session.clearBreakpoints();
+				editorManager.editor.renderer.updateBackMarkers();
+			}
+		} catch (e) {
+			console.warn("AceLinters: Failed to clear UI", e);
 		}
+
 		if (this.worker) {
 			this.worker.terminate();
 		}
-		acode.unregisterFormatter(plugin.id);
 	}
 }
 
