@@ -9,12 +9,21 @@
 
 ## 📦 Supported Languages
 
-This plugin provides linting and formatting support for the following file types:
+This plugin provides linting support for the following file types:
 
 * HTML
 * PHP
 * CSS, SCSS, LESS
 * XML
+* TypeScript, JavaScript, JSX, TSX
+* JSON (including JSON5)
+* YAML
+* Lua
+
+This plugin provides code formatting support for the following file types:
+
+* HTML
+* CSS, SCSS, LESS
 * TypeScript, JavaScript, JSX, TSX
 * JSON (including JSON5)
 * YAML

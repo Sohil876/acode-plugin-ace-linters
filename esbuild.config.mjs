@@ -43,7 +43,7 @@ let buildConfig = {
 	color: true,
 	outdir: "dist",
 	format: "cjs",
-	target: "es2019",
+	target: "es2022",
 	define: {
 		"process.env.NODE_ENV": '"production"',
 		global: "self",
