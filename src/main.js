@@ -3,9 +3,6 @@ import plugin from "../plugin.json";
 
 class AcodeAceLinters {
 	async init() {
-		this.baseUrl = this.baseUrl.endsWith("/")
-			? this.baseUrl
-			: this.baseUrl + "/";
 		const workerUrl = this.baseUrl + "worker.js";
 
 		this.worker = new Worker(workerUrl);
