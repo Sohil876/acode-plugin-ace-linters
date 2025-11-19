@@ -4,6 +4,16 @@ import { copy } from "esbuild-plugin-copy";
 
 const isServe = process.argv.includes("--serve");
 
+// Clear build directory before starting new build
+exec("rm -rf ./dist", (err, stdout, stderr) => {
+	if (err) {
+		console.error("Error cleaning build directory:", err);
+		return;
+	}
+	console.log(stdout.trim());
+	console.log("Build directory cleaned!");
+});
+
 // Function to pack the ZIP file
 function packZip() {
 	exec("node ./pack-zip.js", (err, stdout, stderr) => {
