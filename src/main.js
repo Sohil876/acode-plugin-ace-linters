@@ -12,7 +12,6 @@ class AcodeAceLinters {
 		const extensions = [
 			"json",
 			"json5",
-			"xml",
 			"html",
 			"css",
 			"scss",
@@ -23,7 +22,6 @@ class AcodeAceLinters {
 			"jsx",
 			"lua",
 			"yaml",
-			"php",
 		];
 		acode.registerFormatter(plugin.id, extensions, () => {
 			this.provider.format();
