@@ -1,5 +1,12 @@
 # ChangeLogs
 
+## `v1.0.6`
+
+- Add python support
+- Enable all supported features, update README with feature table
+- Remove XML, PHP from formatter list
+- Optimize build for balance between stability and size reduction
+
 ## `v1.0.5`
 
 - Fixed plugin always disabled after install by switching build to IIFE
