@@ -17,19 +17,12 @@ class CustomTypescriptService extends TypescriptService {
 		super(mode);
 		this.setGlobalOptions({
 			compilerOptions: {
-				// 1. Environment Setup
 				allowJs: true,
-				// THE FIX: Disable strict type checking for .js files.
-				// This stops errors like "Property 'x' does not exist on type 'y' while still catching syntax errors (e.g. missing brackets).
 				checkJs: false,
-
-				// 2. Assume modern environment (fixes "cannot find name 'console/window/document'")
-				target: 99, // ScriptTarget.ESNext
-				module: 99, // ModuleKind.ESNext
-				lib: ["dom", "esnext"], // Load default type definitions for Browser + JS
-
-				// 3. Module resolution
-				moduleResolution: 2, // ModuleResolutionKind.NodeJs
+				target: 99, // ESNext
+				module: 99, // ESNext
+				lib: ["dom", "esnext"],
+				moduleResolution: 2,
 				allowSyntheticDefaultImports: true,
 			},
 		});
@@ -37,45 +30,113 @@ class CustomTypescriptService extends TypescriptService {
 }
 
 // Register custom classes instead of the default module
+// NOTE: definition, typeDefinition and implementation have been disabled because they conflict with multi-cursor mode of Acode and the inability to provide file access as those features expect.
 manager.registerService("typescript", {
+	features: {
+		completion: true,
+		completionResolve: true,
+		diagnostics: true,
+		format: true,
+		hover: true,
+		documentHighlight: true,
+		signatureHelp: true,
+		definition: false,
+		typeDefinition: false,
+		implementation: false,
+	},
 	module: () => Promise.resolve({ TypescriptService: CustomTypescriptService }),
 	className: "TypescriptService",
 	modes: "typescript|tsx|javascript|jsx",
 });
 
 // Register other classes
+// NOTE: definition, typeDefinition and implementation have been disabled because they conflict with multi-cursor mode of Acode and the inability to provide file access as those features expect.
 manager.registerService("html", {
-	features: { signatureHelp: false },
+	features: {
+		completion: true,
+		completionResolve: true,
+		diagnostics: true,
+		format: true,
+		hover: true,
+		documentHighlight: true,
+		signatureHelp: false,
+		definition: false,
+	},
 	module: () => Promise.resolve({ HtmlService }),
 	className: "HtmlService",
 	modes: "html",
 });
 manager.registerService("css", {
-	features: { signatureHelp: false },
+	features: {
+		completion: true,
+		completionResolve: true,
+		diagnostics: true,
+		format: true,
+		hover: true,
+		documentHighlight: true,
+		signatureHelp: false,
+		definition: false,
+	},
 	module: () => Promise.resolve({ CssService }),
 	className: "CssService",
 	modes: "css",
 });
 manager.registerService("less", {
-	features: { signatureHelp: false },
+	features: {
+		completion: true,
+		completionResolve: true,
+		diagnostics: true,
+		format: true,
+		hover: true,
+		documentHighlight: true,
+		signatureHelp: false,
+		definition: false,
+	},
 	module: () => Promise.resolve({ CssService }),
 	className: "CssService",
 	modes: "less",
 });
 manager.registerService("scss", {
-	features: { signatureHelp: false },
+	features: {
+		completion: true,
+		completionResolve: true,
+		diagnostics: true,
+		format: true,
+		hover: true,
+		documentHighlight: true,
+		signatureHelp: false,
+		definition: false,
+	},
 	module: () => Promise.resolve({ CssService }),
 	className: "CssService",
 	modes: "scss",
 });
 manager.registerService("json", {
-	features: { signatureHelp: false, documentHighlight: false },
+	features: {
+		completion: true,
+		completionResolve: true,
+		diagnostics: true,
+		format: true,
+		hover: true,
+		documentHighlight: false,
+		signatureHelp: false,
+		definition: false,
+	},
 	module: () => Promise.resolve({ JsonService }),
 	className: "JsonService",
 	modes: "json",
 });
 manager.registerService("json5", {
-	features: { signatureHelp: false, documentHighlight: false },
+	features: {
+		completion: true,
+		completionResolve: true,
+		diagnostics: true,
+		format: true,
+		hover: true,
+		documentHighlight: false,
+		signatureHelp: false,
+		definition: false,
+	},
 	module: () => Promise.resolve({ JsonService }),
 	className: "JsonService",
 	modes: "json5",
@@ -89,13 +150,23 @@ manager.registerService("lua", {
 		hover: false,
 		documentHighlight: false,
 		signatureHelp: false,
+		definition: false,
 	},
 	module: () => Promise.resolve({ AceLuaLinter }),
 	className: "AceLuaLinter",
 	modes: "lua",
 });
 manager.registerService("yaml", {
-	features: { signatureHelp: false, documentHighlight: false },
+	features: {
+		completion: true,
+		completionResolve: true,
+		diagnostics: true,
+		format: true,
+		hover: true,
+		documentHighlight: false,
+		signatureHelp: false,
+		definition: false,
+	},
 	module: () => Promise.resolve({ YamlService }),
 	className: "YamlService",
 	modes: "yaml",
@@ -109,6 +180,7 @@ manager.registerService("xml", {
 		hover: false,
 		documentHighlight: false,
 		signatureHelp: false,
+		definition: false,
 	},
 	module: () => Promise.resolve({ XmlService }),
 	className: "XmlService",
@@ -123,6 +195,7 @@ manager.registerService("php", {
 		hover: false,
 		documentHighlight: false,
 		signatureHelp: false,
+		definition: false,
 	},
 	module: () => Promise.resolve({ PhpService }),
 	className: "PhpService",

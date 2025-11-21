@@ -27,7 +27,7 @@ class AcodeAceLinters {
 			this.provider.format();
 		});
 
-		window.toast("Ace Linters: Loaded successfully");
+		window.toast("Ace Linters: Loaded successfully!");
 	}
 
 	async destroy() {
