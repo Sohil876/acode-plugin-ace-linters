@@ -38,7 +38,11 @@ const zipPlugin = {
 let buildConfig = {
 	entryPoints: ["src/main.js", "src/worker.js"],
 	bundle: true,
-	minify: true,
+	minify: false,
+	minifyWhitespace: true,
+	minifySyntax: true,
+	minifyIdentifiers: false,
+	keepNames: true,
 	logLevel: "info",
 	color: true,
 	outdir: "dist",
