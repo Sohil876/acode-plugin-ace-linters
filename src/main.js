@@ -22,6 +22,7 @@ class AcodeAceLinters {
 			"jsx",
 			"lua",
 			"yaml",
+			"py",
 		];
 		acode.registerFormatter(plugin.id, extensions, () => {
 			this.provider.format();

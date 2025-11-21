@@ -7,6 +7,7 @@ import { TypescriptService } from "ace-linters/build/typescript-service";
 import { XmlService } from "ace-linters/build/xml-service";
 import { YamlService } from "ace-linters/build/yaml-service";
 import { AceLuaLinter } from "ace-lua-linter/build/ace-lua-linter";
+import { PythonService } from "ace-python-ruff-linter/build/python-service";
 
 // The manager automatically listens to 'message' events on 'self'
 let manager = new ServiceManager(self);
@@ -200,4 +201,19 @@ manager.registerService("php", {
 	module: () => Promise.resolve({ PhpService }),
 	className: "PhpService",
 	modes: "php",
+});
+manager.registerService("python", {
+	features: {
+		completion: false,
+		completionResolve: false,
+		diagnostics: true,
+		format: true,
+		hover: false,
+		documentHighlight: false,
+		signatureHelp: false,
+		definition: false,
+	},
+	module: () => Promise.resolve({ PythonService }),
+	className: "PythonService",
+	modes: "python",
 });

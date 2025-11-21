@@ -7,7 +7,6 @@
 	"author": "Arsh Khan <sohil876@gmail.com>",
 	"license": "MIT",
 	"dependencies": {
-		"html-tag-js": "^2.4.15",
 		"path-browserify": "^1.0.1"
 	},
 	"devDependencies": {
@@ -15,7 +14,9 @@
 		"@types/ace": "^0.0.52",
 		"ace-linters": "^1.8.5",
 		"ace-lua-linter": "^1.1.0",
+		"ace-python-ruff-linter": "^1.1.0",
 		"esbuild": "^0.25.8",
+		"html-tag-js": "^2.4.16",
 		"jszip": "^3.10.1"
 	},
 	"scripts": {
