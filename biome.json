@@ -6,12 +6,26 @@
 		"useIgnoreFile": true
 	},
 	"files": {
-		"includes": ["**", "!!**/dist", "!!**/.git", "!!**/node_modules"],
+		"includes": [
+			"**",
+			"!!**/dist",
+			"!!**/.git",
+			"!!**/node_modules",
+			"!!**/typings",
+			"!!plugin.zip"
+		],
 		"ignoreUnknown": true
 	},
 	"formatter": {
 		"enabled": true,
 		"indentStyle": "tab"
+	},
+	"javascript": {
+		"formatter": {
+			"quoteStyle": "double",
+			"semicolons": "always",
+			"trailingCommas": "es5"
+		}
 	},
 	"assist": {
 		"actions": {
@@ -23,23 +37,28 @@
 	"linter": {
 		"enabled": true,
 		"rules": {
-			"recommended": false,
+			"recommended": true,
 			"complexity": {
 				"noForEach": "off",
 				"noStaticOnlyClass": "error",
 				"noUselessSwitchCase": "error",
-				"useFlatMap": "error"
+				"useFlatMap": "warn"
 			},
 			"style": {
 				"noNegationElse": "off",
 				"useForOf": "error",
-				"useNodejsImportProtocol": "error",
+				"useNodejsImportProtocol": "off",
 				"useNumberNamespace": "error"
 			},
 			"suspicious": {
 				"noDoubleEquals": "error",
+				"noAssignInExpressions": "error",
 				"noThenProperty": "error",
 				"useIsArray": "error"
+			},
+			"correctness": {
+				"noUnusedVariables": "warn",
+				"noUnusedImports": "warn"
 			}
 		}
 	}

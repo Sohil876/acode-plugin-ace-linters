@@ -1,4 +1,4 @@
-import { exec } from "node:child_process";
+import { exec } from "child_process";
 import * as esbuild from "esbuild";
 
 const isServe = process.argv.includes("--serve");
