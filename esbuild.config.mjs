@@ -4,7 +4,7 @@ import * as esbuild from "esbuild";
 const isServe = process.argv.includes("--serve");
 
 // Clear build directory before starting new build
-exec("rm -rf ./dist", (err, stdout, stderr) => {
+exec("rm -rf ./dist", (err, stdout) => {
 	if (err) {
 		console.error("Error cleaning build directory:", err);
 		return;
@@ -15,7 +15,7 @@ exec("rm -rf ./dist", (err, stdout, stderr) => {
 
 // Function to pack the ZIP file
 function packZip() {
-	exec("node ./pack-zip.js", (err, stdout, stderr) => {
+	exec("node ./pack-zip.js", (err, stdout) => {
 		if (err) {
 			console.error("Error packing zip:", err);
 			return;
@@ -35,7 +35,7 @@ const zipPlugin = {
 };
 
 // Base build configuration
-let buildConfig = {
+const buildConfig = {
 	entryPoints: ["src/main.js", "src/worker.js"],
 	bundle: true,
 	minify: false,
@@ -59,7 +59,7 @@ let buildConfig = {
 };
 
 // Main function to handle both serve and production builds
-(async function () {
+(async () => {
 	if (isServe) {
 		console.log("Starting development server...");
 
@@ -67,7 +67,7 @@ let buildConfig = {
 		const ctx = await esbuild.context(buildConfig);
 
 		await ctx.watch();
-		const { host, port } = await ctx.serve({
+		await ctx.serve({
 			servedir: ".",
 			port: 3000,
 		});

@@ -2,8 +2,12 @@ import { LanguageProvider } from "ace-linters/build/ace-linters";
 import plugin from "../plugin.json";
 
 class AcodeAceLinters {
+	constructor() {
+		this.baseUrl = "";
+		this.worker = null;
+	}
 	async init() {
-		const workerUrl = this.baseUrl + "worker.js";
+		const workerUrl = `${this.baseUrl}worker.js`;
 
 		this.worker = new Worker(workerUrl);
 		this.provider = LanguageProvider.create(this.worker);
@@ -24,7 +28,7 @@ class AcodeAceLinters {
 			"yaml",
 			"py",
 		];
-		acode.registerFormatter(plugin.id, extensions, () => {
+		acode.registerFormatter(plugin.id, extensions, async () => {
 			this.provider.format();
 		});
 
@@ -34,17 +38,19 @@ class AcodeAceLinters {
 	async destroy() {
 		try {
 			acode.unregisterFormatter(plugin.id);
-		} catch (e) {}
+		} catch (e) {
+			console.warn("AceLinters: Failed to remove formatter!", e);
+		}
 
 		try {
-			if (editorManager.editor && editorManager.editor.session) {
+			if (editorManager.editor?.session) {
 				const session = editorManager.editor.session;
 				session.clearAnnotations();
 				session.clearBreakpoints();
 				editorManager.editor.renderer.updateBackMarkers();
 			}
 		} catch (e) {
-			console.warn("AceLinters: Failed to clear UI", e);
+			console.warn("AceLinters: Failed to clear UI!", e);
 		}
 
 		if (this.worker) {
@@ -63,7 +69,7 @@ if (window.acode) {
 			}
 			acodePlugin.baseUrl = baseUrl;
 			await acodePlugin.init($page, cacheFile, cacheFileUrl);
-		},
+		}
 	);
 	acode.setPluginUnmount(plugin.id, () => {
 		acodePlugin.destroy();

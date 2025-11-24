@@ -10,7 +10,7 @@ import { AceLuaLinter } from "ace-lua-linter/build/ace-lua-linter";
 import { PythonService } from "ace-python-ruff-linter/build/python-service";
 
 // The manager automatically listens to 'message' events on 'self'
-let manager = new ServiceManager(self);
+const manager = new ServiceManager(self);
 
 // Custom services to hold defaults
 class CustomTypescriptService extends TypescriptService {
