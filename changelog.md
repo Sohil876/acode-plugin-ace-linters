@@ -1,5 +1,9 @@
 # ChangeLogs
 
+## `v1.0.7`
+
+- Bug fixes
+
 ## `v1.0.6`
 
 - Add python support
